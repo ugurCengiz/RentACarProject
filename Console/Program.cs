@@ -1,6 +1,8 @@
 ﻿using System;
 using Business.Concrete;
+using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.IMemory;
+using Entities.Concrete;
 
 namespace Console
 {
@@ -8,12 +10,25 @@ namespace Console
     {
         public static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new IMemoryDal());
-
-            foreach (var car in carManager.GetAll())
+            CarManager carManager = new CarManager(new EfCarDal());
+            carManager.Delete(new Car
             {
-                System.Console.WriteLine(car.Description);
-            }
+                BrandId = 1,
+                CarName = "a",
+                ColorId = 1,
+                DailyPrice = 100,
+                Description = "M5",
+                ModelYear = 2019,
+                Id = 1
+                
+                
+            });
+            
+
+            //foreach (var car in carManager.GetAll())
+            //{
+            //    System.Console.WriteLine(car.Description);
+            //}
         }
     }
 }

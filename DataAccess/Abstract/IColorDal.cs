@@ -5,10 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Entities.Concrete;
 
-namespace Entities.Abstract
+namespace DataAccess.Abstract
 {
-  public  interface IEntity
+   public interface IColorDal:IEntityRepository<Color>
     {
-        
     }
 }
