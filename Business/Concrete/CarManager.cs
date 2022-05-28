@@ -27,7 +27,7 @@ namespace Business.Concrete
             }
             else
             {
-                Console.WriteLine("Koşullar Karşılanamadı!!!");
+                Console.WriteLine("Koşullar Karşılanamadı !!!");
                 
             }
             

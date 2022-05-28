@@ -29,6 +29,8 @@ namespace DataAccess.Concrete.EntityFramework
                 var updatedEntity = context.Entry(entity);
                 updatedEntity.State = EntityState.Modified;
                 context.SaveChanges();
+
+                
             }
         }
 
