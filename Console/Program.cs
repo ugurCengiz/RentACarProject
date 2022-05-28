@@ -15,32 +15,32 @@ namespace Console
 
 
             CarManager carManager = new CarManager(new EfCarDal());
-            //carManager.Add(new Car
-            //{
-            //    BrandId = 4,
-            //    CarName = "Fiat",
-            //    ColorId = 4,
-            //    DailyPrice = 100,
-            //    Description = "Linea",
-            //    ModelYear = 2019,
+            carManager.Add(new Car
+            {
+                BrandId = 4,
+                CarName = "Fiat",
+                ColorId = 4,
+                DailyPrice = 100,
+                Description = "Linea",
+                ModelYear = 2019,
 
-            //});
+            });
 
             //-------------------------------------------------------------------------------------------------------------------------------- 
 
             ColorManager colorManager = new ColorManager(new EfColorDal());
-            //colorManager.Add(new Color
-            //{
-            //    ColorName = "Mavi"
-            //});
+            colorManager.Add(new Color
+            {
+                ColorName = "Mavi"
+            });
 
-            ////--------------------------------------------------------------------------------------------------------------------------------
+            //--------------------------------------------------------------------------------------------------------------------------------
 
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            //brandManager.Add(new Brand
-            //{
-            //    BrandName = "Fiat"
-            //});
+            brandManager.Add(new Brand
+            {
+                BrandName = "Fiat"
+            });
 
             GetAll(carManager);
             
