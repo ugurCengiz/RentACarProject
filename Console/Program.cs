@@ -10,6 +10,8 @@ namespace Console
     {
         public static void Main(string[] args)
         {
+            //GetAll(carManager);
+
             CarManager carManager = new CarManager(new EfCarDal());
             carManager.Delete(new Car
             {
@@ -20,15 +22,18 @@ namespace Console
                 Description = "M5",
                 ModelYear = 2019,
                 Id = 1
-                
-                
             });
             
 
-            //foreach (var car in carManager.GetAll())
-            //{
-            //    System.Console.WriteLine(car.Description);
-            //}
+            
+        }
+
+        private static void GetAll(CarManager carManager)
+        {
+            foreach (var car in carManager.GetAll())
+            {
+                System.Console.WriteLine(car.Description);
+            }
         }
     }
 }
