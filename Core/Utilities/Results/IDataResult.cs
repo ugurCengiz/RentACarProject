@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Core.Entities;
-using Entities.Concrete;
 
-namespace DataAccess.Abstract
+namespace Core.Utilities.Results
 {
-   public interface IBrandDal:IEntityRepository<Brand>
+    public interface IDataResult<T>:IResult
     {
+        public T Data { get; }
+
         
     }
 }

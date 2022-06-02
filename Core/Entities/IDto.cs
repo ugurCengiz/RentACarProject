@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Core.Entities;
-using Entities.Concrete;
 
-namespace DataAccess.Abstract
+namespace Core.Entities
 {
-   public interface IColorDal:IEntityRepository<Color>
+   public interface IDto
     {
+
     }
 }

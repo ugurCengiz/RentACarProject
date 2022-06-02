@@ -11,66 +11,43 @@ namespace Console
     {
         public static void Main(string[] args)
         {
-            //SİLME VE GÜNCELLEME YAPARKEN ID EKLE AMA EKLEME YAPARKEN ID KALDIR ÇÜNKÜ OTOTMATİK ARTAN VAR
-
-
             CarManager carManager = new CarManager(new EfCarDal());
+            
+            
+            
+            AddTest(carManager);
+            DetailsTest(carManager);
+        }
+
+        private static void AddTest(CarManager carManager)
+        {
             carManager.Add(new Car
             {
-                BrandId = 4,
-                CarName = "Fiat",
-                ColorId = 4,
-                DailyPrice = 100,
-                Description = "Linea",
-                ModelYear = 2019,
-
+                CarName = "Cayman911",
+                BrandId = 5,
+                DailyPrice = 500,
+                Description = "Sıfır Araç",
+                ColorId = 1, 
+                ModelYear = 2022,
+                
             });
-
-            //-------------------------------------------------------------------------------------------------------------------------------- 
-
-            ColorManager colorManager = new ColorManager(new EfColorDal());
-            colorManager.Add(new Color
-            {
-                ColorName = "Mavi"
-            });
-
-            //--------------------------------------------------------------------------------------------------------------------------------
-
-            BrandManager brandManager = new BrandManager(new EfBrandDal());
-            brandManager.Add(new Brand
-            {
-                BrandName = "Fiat"
-            });
-
-            GetAll(carManager);
-            
-
         }
 
-         static void GetAll(CarManager carManager)
+        public static void DetailsTest(CarManager carManager)
         {
-            foreach (var car in carManager.GetAll())
+            var result = carManager.GetProductDetails();
+            if (result.Success==true)
             {
-                System.Console.WriteLine("{0} / {1} / {2} / {3}",car.CarName,car.ModelYear,car.DailyPrice,car.Description);
+                foreach (var car in result.Data)
+                {
+                    System.Console.WriteLine(car.BrandName + " / " + car.ColorName + " / " + car.DailyPrice);
+                }
             }
+            else
+            {
+                System.Console.WriteLine(result.Message);
+            }
+           
         }
-
-
-
-         static void GetAll(BrandManager brandManager)
-         {
-             foreach (var brand in brandManager.GetAll())
-             {
-                 System.Console.WriteLine("{0} / {1}", brand.BrandId,brand.BrandName);
-             }
-         }
-
-         static void GetAll(ColorManager colorManager)
-         {
-             foreach (var color in colorManager.GetAll())
-             {
-                 System.Console.WriteLine("{0} / {1}",color.ColorId,color.ColorName);
-             }
-         }
     }
 }
