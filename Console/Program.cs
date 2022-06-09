@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Business.Concrete;
+using Core.Utilities.Results;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.IMemory;
 using Entities.Concrete;
@@ -11,12 +12,32 @@ namespace Console
     {
         public static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new EfCarDal());
-            
-            
-            
-            AddTest(carManager);
-            DetailsTest(carManager);
+            //CarManager carManager = new CarManager(new EfCarDal());
+             RentalManager rentalManager = new RentalManager(new EfRentalDal());
+
+             foreach (var rental in rentalManager.GetAll().Data)
+             {
+                 System.Console.WriteLine(rental.CarId);
+             }
+
+
+            //RentalAddTest();
+
+
+            //AddTest(carManager);
+            //DetailsTest(carManager);
+        }
+
+        private static void RentalAddTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            rentalManager.Add(new Rental()
+            {
+                CarId = 1,
+                CustomerId = 1,
+                RentDate = new DateTime(2022, 7, 1),
+                ReturnDate = new DateTime(2022, 9, 1)
+            });
         }
 
         private static void AddTest(CarManager carManager)
@@ -49,5 +70,7 @@ namespace Console
             }
            
         }
+
+        
     }
 }

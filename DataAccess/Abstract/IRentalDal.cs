@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Entities;
+using Entities.Concrete;
 
-namespace Core.Utilities.Results
+namespace DataAccess.Abstract
 {
-    public interface IResult
+  public  interface IRentalDal:IEntityRepository<Rental>
     {
-        bool Success { get; }
-        string Message { get; }
 
     }
 }

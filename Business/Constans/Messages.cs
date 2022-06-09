@@ -14,6 +14,7 @@ namespace Business.Constans
         public static string ProductListed = "Ürün listelendi.";
         public static string ProductDeleted  = "Ürün silindi.";
         public static string ProductUpdated = "Ürün Güncellendi.";
+        public static string ReturnRentalError = "Bu Araç Daha Teslim Edilmemiştir.";
 
     }
 }
