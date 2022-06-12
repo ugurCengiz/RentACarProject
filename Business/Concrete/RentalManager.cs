@@ -5,14 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Business.Constans;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
 namespace Business.Concrete
 {
-    public class RentalManager:IRentalService
-    { 
+    public class RentalManager : IRentalService
+    {
         IRentalDal _rentalDal;
 
 
@@ -21,18 +23,11 @@ namespace Business.Concrete
             _rentalDal = rentalDal;
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-           
-            if (rental.ReturnDate !=null || rental.RentDate.Date>rental.ReturnDate.Date)
-            {
-                _rentalDal.Add(rental);
-                return new SuccessResult(Messages.ProductAdded);
-            }
-            return new ErrorResult(Messages.ReturnRentalError);
-            
-            
-            
+            _rentalDal.Add(rental);
+            return new SuccessResult(Messages.ProductAdded);
 
         }
 
