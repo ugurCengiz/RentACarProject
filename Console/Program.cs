@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Business.Concrete;
 using Core.Utilities.Results;
 using DataAccess.Concrete.EntityFramework;
-using DataAccess.Concrete.IMemory;
+
 using Entities.Concrete;
 
 namespace Console
