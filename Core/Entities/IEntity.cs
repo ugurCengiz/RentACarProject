@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Core.Entities
 {
-  public  interface IEntity
+    public interface IEntity
     {
-        
+
     }
 }
