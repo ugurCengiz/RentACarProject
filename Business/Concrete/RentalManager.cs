@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constans;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Caching;
+using Core.Aspects.Performance;
 using Core.Aspects.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -22,8 +25,9 @@ namespace Business.Concrete
         {
             _rentalDal = rentalDal;
         }
-
+        [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(RentalValidator))]
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Rental rental)
         {
             _rentalDal.Add(rental);
@@ -43,6 +47,8 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ProductDeleted);
         }
 
+        [CacheAspect]
+        [PerformanceAspect(5)]
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.ProductListed);
