@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.Utilities.Results;
 using Entities.Concrete;
+using Entities.Dtos;
 
 namespace Business.Abstract
 {
@@ -14,5 +15,7 @@ namespace Business.Abstract
         IResult Update(Rental rental);
         IResult Delete(Rental rental);
         IDataResult<List<Rental>> GetAll();
+
+        IDataResult<List<RentalDetailDto>> GetRentalDetails();
     }
 }

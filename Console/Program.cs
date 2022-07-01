@@ -13,19 +13,18 @@ namespace Console
         public static void Main(string[] args)
         {
             //CarManager carManager = new CarManager(new EfCarDal());
-             RentalManager rentalManager = new RentalManager(new EfRentalDal());
-
-             foreach (var rental in rentalManager.GetAll().Data)
-             {
-                 System.Console.WriteLine(rental.CarId);
-             }
-
+             EfRentalDal rentalManager = new EfRentalDal();
+            // DetailsTest(rentalManager.GetRentalDetails());
+            foreach (var rental in rentalManager.GetRentalDetails())
+            {
+                System.Console.WriteLine(rental.BrandName);
+            }
 
             //RentalAddTest();
 
 
             //AddTest(carManager);
-            //DetailsTest(carManager);
+
         }
 
         private static void RentalAddTest()
@@ -54,14 +53,14 @@ namespace Console
             });
         }
 
-        public static void DetailsTest(CarManager carManager)
+        public static void DetailsTest(RentalManager rentalManager)
         {
-            var result = carManager.GetProductDetails();
+            var result = rentalManager.GetRentalDetails();
             if (result.Success==true)
             {
-                foreach (var car in result.Data)
+                foreach (var rental in result.Data)
                 {
-                    System.Console.WriteLine(car.BrandName + " / " + car.ColorName + " / " + car.DailyPrice);
+                    System.Console.WriteLine(rental.RentalId);
                 }
             }
             else
