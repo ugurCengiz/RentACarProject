@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
@@ -14,7 +15,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
   public  class EfRentalDal : EfEntityRepositoryBase<Rental, RentACarContext>, IRentalDal
     {
-        public List<RentalDetailDto> GetRentalDetails()
+        public List<RentalDetailDto> GetRentalDetails(Expression<Func<RentalDetailDto, bool>> filter = null)
         {
             using (RentACarContext context = new RentACarContext())
             {
@@ -31,10 +32,20 @@ namespace DataAccess.Concrete.EntityFramework
                         ColorName = col.ColorName,
                         CustomerName = u.FirstName +" "+u.LastName,
                         RentDate = r.RentDate,
-                        ReturnDate = r.ReturnDate
+                        ReturnDate = r.ReturnDate,
+                        CarId = c.CarId,
+                        CustomerId = cu.CustomerId,
+                        CompanyName = cu.CompanyName,
+                        DailyPrice = c.DailyPrice,
+                        Description = c.Description,
+                        ModelYear = c.ModelYear,
+                        FirstName = u.FirstName,
+                        LastName = u.LastName
+
+                        
                         
                     };
-                return result.ToList();
+                return filter == null ? result.ToList() : result.Where(filter).ToList();
             }
         }
     }

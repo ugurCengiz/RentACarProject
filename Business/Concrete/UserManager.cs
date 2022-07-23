@@ -8,6 +8,7 @@ using Business.Constans;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Core.Entities.Concrete;
+using DataAccess.Concrete.EntityFramework;
 
 namespace Business.Concrete
 {
@@ -50,9 +51,23 @@ namespace Business.Concrete
             return _userDal.GetClaims(user);
         }
 
-        public User GetByMail(string email)
+       
+
+        public IDataResult<User> GetById(int id)
         {
-            return _userDal.Get(u => u.Email == email);
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == id));
+        }
+
+        public IDataResult<User> GetByMail(string email)
+        {
+           // RentACarContext context = new();
+            var user = _userDal.GetAll(p => p.Email == email).Count;
+            if (user==0)
+            {
+                return null;
+            }
+
+           return new SuccessDataResult<User>(_userDal.Get(x=>x.Email==email));
         }
     }
 }

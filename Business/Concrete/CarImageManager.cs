@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constans;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Validation;
@@ -27,7 +28,7 @@ namespace Business.Concrete
             _carImagesDal = carImagesDal;
         }
 
-        
+        [SecuredOperation("product.add,admin")]
         public IResult Add(IFormFile file, CarImage carImage)
         {
             IResult result = BusinessRules.Run(CheckIfCarImageLimit(carImage.CarId), CheckIfImageExtensionValid(file));
@@ -41,18 +42,18 @@ namespace Business.Concrete
             _carImagesDal.Add(carImage);
             return new SuccessResult();
         }
-       
+        [SecuredOperation("product.add,admin")]
         public IResult Delete(CarImage carImage)
         {
-           string path = GetById(carImage.CarImageId).Data.ImagePath;
+           string path = GetByImageId(carImage.CarImageId).Data.ImagePath;
             FileHelper.Delete(path);
             _carImagesDal.Delete(carImage);
             return new SuccessResult();
         }
-
+        [SecuredOperation("product.add,admin")]
         public IResult Updated(IFormFile file, CarImage carImage)
         {
-            string oldPath = GetById(carImage.CarImageId).Data.ImagePath;
+            string oldPath = GetByImageId(carImage.CarImageId).Data.ImagePath;
             FileHelper.Update(file,oldPath);
            _carImagesDal.Update(carImage);
            return new SuccessResult(Messages.ProductUpdated);
@@ -63,9 +64,13 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarImage>>(_carImagesDal.GetAll(), Messages.ProductListed);
         }
 
-        public IDataResult<CarImage> GetById(int id)
+        public IDataResult<CarImage> GetByImageId(int id)
         {
             return new SuccessDataResult<CarImage>(_carImagesDal.Get(c => c.CarImageId == id));
+        }
+        public IDataResult<List<CarImage>> GetAllByCarId(int carId)
+        {
+            return new SuccessDataResult<List<CarImage>>(ChechIfCarHaveNoImage(carId));
         }
 
         IResult CheckIfCarImageLimit(int carId)
@@ -86,5 +91,20 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.InvalidImageExtension);
             return new SuccessResult();
         }
+
+        private List<CarImage> ChechIfCarHaveNoImage(int carId)
+        {
+            string path = @"\Images\default.png";
+            var result = _carImagesDal.GetAll(c => c.CarId == carId);
+            if (!result.Any())
+            {
+                return new List<CarImage> {new CarImage {CarId = carId, ImagePath = path}};
+
+            }
+
+            return result;
+        }
+
+
     }
 }

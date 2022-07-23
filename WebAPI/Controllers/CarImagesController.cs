@@ -30,6 +30,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
+
             return BadRequest(result);
         }
 
@@ -42,6 +43,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
+
             return BadRequest(result);
         }
 
@@ -53,6 +55,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
+
             return BadRequest(result);
 
         }
@@ -60,7 +63,7 @@ namespace WebAPI.Controllers
         [HttpPost("update")]
         public IActionResult Update([FromForm] CarImage carImage, [FromForm] IFormFile file)
         {
-            IResult result = _carImageService.Updated(file,carImage);
+            IResult result = _carImageService.Updated(file, carImage);
             if (result.Success)
             {
                 return Ok(result);
@@ -71,9 +74,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getbyid")]
-        public IActionResult GetById( int id)
+        public IActionResult GetByImageId(int id)
         {
-            var result = _carImageService.GetById(id);
+            var result = _carImageService.GetByImageId(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -82,6 +85,18 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getbycarid")]
+        public IActionResult GetAllByCarId(int carId)
+        {
+            var result = _carImageService.GetAllByCarId(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
 
+            return BadRequest(result);
+
+        }
     }
 }
+

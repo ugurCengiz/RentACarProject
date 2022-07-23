@@ -26,14 +26,23 @@ namespace Business.Concrete
         {
             _rentalDal = rentalDal;
         }
-        [SecuredOperation("product.add,admin")]
+        //[SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(RentalValidator))]
         [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Rental rental)
         {
-            _rentalDal.Add(rental);
-            return new SuccessResult(Messages.ProductAdded);
+            var results = _rentalDal.GetAll((r => r.CarId == rental.CarId));
+            foreach (var result in results)
+            {
+                if (result.ReturnDate==null || (rental.RentDate >= result.RentDate && rental.RentDate <= result.ReturnDate) ||
+                    (rental.ReturnDate >= result.RentDate && rental.RentDate <= result.ReturnDate))
+                {
+                    return new ErrorResult(Messages.RentalError);
 
+                }
+            }
+            _rentalDal.Add(rental);
+            return new SuccessResult(Messages.SuccessRentalUpdate);
         }
 
         public IResult Update(Rental rental)
@@ -57,7 +66,51 @@ namespace Business.Concrete
 
         public IDataResult<List<RentalDetailDto>> GetRentalDetails()
         {
-            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(), Messages.ProductListed);
+            var result = _rentalDal.GetRentalDetails();
+            return new SuccessDataResult<List<RentalDetailDto>>(result, Messages.ProductListed);
+        }
+
+        public IDataResult<Rental> GetById(int id)
+        {
+            return new SuccessDataResult<Rental>(_rentalDal.Get(b => b.Id == id));
+        }
+
+        public IResult EndRental(Rental rental)
+        {
+            var result = _rentalDal.GetAll();
+            var updatedRental = result.LastOrDefault();
+            if (updatedRental.ReturnDate != null && updatedRental.RentDate < DateTime.Now && updatedRental.ReturnDate > DateTime.Now)
+            {
+                updatedRental.ReturnDate = DateTime.Now;
+                _rentalDal.Update(updatedRental);
+                return new SuccessResult(Messages.SuccessRentalUpdate);
+            }
+
+            return new ErrorResult(Messages.ErrorRentalUpdate);
+        }
+
+        public IResult isCarAvailable(Rental rental)
+        {
+            var result = _rentalDal.GetAll(r => r.CarId == rental.CarId);
+
+            if (result.Any(r => r.RentDate != null && r.ReturnDate == null))
+            {
+                return new ErrorResult(Messages.CarIsNotAvailable);
+            }
+            else
+            {
+                return new SuccessResult();
+            }
+        }
+
+        public IDataResult<List<RentalDetailDto>> GetRentalsByCarId(int carId)
+        {
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(r => r.CarId == carId));
+        }
+
+        public IDataResult<List<RentalDetailDto>> GetRentalByCustomerId(int customerId)
+        {
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(r => r.CustomerId == customerId));
         }
     }
 }

@@ -14,10 +14,18 @@ namespace Business.Abstract
         IResult Add(Car car);
         IResult Update(Car car);
         IResult Delete(Car car);
-        IDataResult< List<Car>> GetAll();
-        IDataResult<Car> GetCarsByBrandId(int brandId);
-        IDataResult<Car> GetCarsByColorId(int colorId);
+        IDataResult<List<Car>> GetAll();
+        IDataResult <List<Car>> GetCarsByBrandId(int brandId);
+        IDataResult <List<Car>> GetCarsByColorId(int colorId);
         IDataResult<List<CarDetailDto>> GetCarDetails();
+        IDataResult<List<CarDetailDto>> GetCarDetailsCarId(int id);
+
+        IDataResult<CarDetailDto> GetCarDetailCarId(int id);
+        IDataResult<List<CarDetailDto>> GetCarsDtoByBrandId(int brandId);
+        IDataResult<List<CarDetailDto>> GetCarsDtoByColorId(int colorId);
+        IDataResult<List<Car>> GetCarsByCarId(int carId);
+        IDataResult<List<CarDetailDto>> GetCarByColorIdAndBrandId(int colorId, int brandId);
+
 
     }
 }

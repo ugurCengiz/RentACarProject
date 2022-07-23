@@ -24,6 +24,12 @@ namespace Business.Constans
         public static string PasswordError = "Şifre hatalı";
         public static string SuccessfulLogin = "Sisteme giriş başarılı";
         public static string UserAlreadyExists = "Bu kullanıcı zaten mevcut";
-        public static string AccessTokenCreated = "Access token başarıyla oluşturuldu";
+        public static string AccessTokenCreated = " token başarıyla oluşturuldu";
+        public static string CarIsNotAvailable = "Araba mevcut değil";
+        public static string ErrorRentalUpdate = "Araç şu anda kirada değil, sonlandırma başarısız";
+        public static string SuccessRentalUpdate = "Kiralama başarı ile sonlandırıldı";
+        public static string creditCardAdded = "Kredi kartı başarı ile eklendi";
+        public static string RentalError = "Araç şu anda kiralanamaz";
+        public static string creditCardDeleted = "Kredi kartı başarı ile silindi";
     }
 }
