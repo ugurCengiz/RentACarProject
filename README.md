@@ -2,14 +2,14 @@ ReCapProject (Rent A Car Back-end)
 Introduction
 While developing this project, I learned new techniques and patterns and I developed myself very well. If you need detailed information, you can contact me.
 
-Technologies Used
+#Technologies Used
 - .NET
 - ASP.NET for Restful api
 - EntityFramework Core
 - Autofac
 - FluentValidation
 - MsSql
-Techniques
+#Techniques
 - Layered Architecture Design Pattern
 - OOP
 - AOP
