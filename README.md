@@ -1,15 +1,15 @@
-ReCapProject (Rent A Car Back-end)
-Introduction
+# ReCapProject (Rent A Car Back-end)
+## Introduction
 While developing this project, I learned new techniques and patterns and I developed myself very well. If you need detailed information, you can contact me.
 
-#Technologies Used
+## Technologies Used
 - .NET
 - ASP.NET for Restful api
 - EntityFramework Core
 - Autofac
 - FluentValidation
 - MsSql
-#Techniques
+## Techniques
 - Layered Architecture Design Pattern
 - OOP
 - AOP
@@ -19,7 +19,7 @@ While developing this project, I learned new techniques and patterns and I devel
 FluentValidation
 - If you want to check content of entity when add, update etc. operations you can create validation for related entity.
 
-Aspects
+## Aspects
 - ValidationAspect
 - CacheAspect
 - CacheRemoveAspect
@@ -27,7 +27,7 @@ Aspects
 - SecuredOperationAspect
 - TransactionAsepct
 You can understand better if you examine the classes in the concrete folder in the business layer.
-Database objects
+## Database objects
 - Brand
 - Car
 - CarImage
@@ -38,7 +38,7 @@ Database objects
 - OperationClaim(In the core layer)
 - UserOperationClaim(In the core layer)
 - User(In the core layer)
-Nuget Packages and Their Versions
+## Nuget Packages and Their Versions
 - Autofac - Version = v6.4.0
 - Autofac.Extensions.DependencyInjection - Version = v8.0.0
 - Autofac.Extras.DynamicProxy - Version = v6.0.1
